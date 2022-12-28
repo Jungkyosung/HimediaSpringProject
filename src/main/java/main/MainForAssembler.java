@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
+import spring.MemberInfoPrint;
 import spring.MemberListPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
@@ -44,6 +45,11 @@ public class MainForAssembler {
 				
 				continue;
 			}
+			else if (command.startsWith("info")) {
+				processInfoCommand(command.split(" "));
+				
+				continue;
+			}
 			
 			printHelp();
 		}
@@ -51,6 +57,18 @@ public class MainForAssembler {
 	}
 
 	
+
+	private static void processInfoCommand(String[] args) {
+		if(args.length !=2) {
+			printHelp();
+			return;
+		}
+		MemberInfoPrint InfoPrint = ctx.getBean("InfoPrint",MemberInfoPrint.class);
+		InfoPrint.printMemberInfo(args[1]);
+		
+	}
+
+
 
 	private static void processListCommand() {
 		MemberListPrinter listPrinter = ctx.getBean("listPrinter", MemberListPrinter.class);
@@ -128,6 +146,8 @@ public class MainForAssembler {
 		System.out.println("[사용법]");
 		System.out.println(">new 이메일 이름 암호 암호확인");
 		System.out.println(">change 이메일 현재비번 변경비번");
+		System.out.println(">list");
+		System.out.println(">Info 이메일");
 		System.out.println();
 		
 	}

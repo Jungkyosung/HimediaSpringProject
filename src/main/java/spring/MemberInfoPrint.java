@@ -20,7 +20,7 @@ public class MemberInfoPrint {
 	
 	
 	//이메일과 일치하는 회원의 정보 출력 메서드
-	public void printtMemberInfo(String email) {
+	public void printMemberInfo(String email) {
 		Member member = memberDao.selectByEmail(email);
 		if (member == null) {
 			System.out.println("일치하는 회원정보 없음");
